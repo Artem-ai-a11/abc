@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Игра угадай слово</title>
+</head>
+<body>
+    <h1>Игра: Угадай слово</h1>
+    <div id="game">
+        <div id="word">_ _ _ _</div>
+        <input type="text" id="guess" maxlength="1" placeholder="Введите букву">
+        <button onclick="checkGuess()">Угадать</button>
+        <div id="message"></div>
+    </div>
+
+    <script>
+
+        const words = "рак"
+
+        // Обновление отображения слова
+        function updateWordDisplay() {
+            document.getElementById("word").textContent = guessedWord.join(" ");
+        }
+
+         // Проверка введённой буквы
+        function checkGuess() {
+            let guess = document.getElementById("guess").value.toLowerCase();
+            document.getElementById("guess").value = "";  // Очистка поля ввода
+
+            if (guess.length !== 1) {
+                alert("Введите одну букву!");
+                return;
+            }
+
+            let correctGuess = false;
+            for (let i = 0; i < word.length; i++) {
+                if (word[i] === guess) {
+                    guessedWord[i] = guess;
+                    correctGuess = true;
+                }
+            }
+
+            if (!correctGuess) {
+                attempts--;
+            }
+
+            updateWordDisplay();
+            checkGameStatus();
+        }
+
+        // Проверка статуса игры
+        function checkGameStatus() {
+            if (guessedWord.join("") === word) {
+                document.getElementById("message").textContent = "Поздравляем! Вы угадали слово!";
+                document.getElementById("guess").disabled = true;
+            } else if (attempts <= 0) {
+                document.getElementById("message").textContent = `Игра окончена! Слово было: ${word}`;
+                document.getElementById("guess").disabled = true;
+            } else {
+                document.getElementById("message").textContent = `Осталось попыток: ${attempts}`;
+            }
+        }
+
+        // Инициализация игры
+        updateWordDisplay();
+    </script>
+</body>
+</html>
