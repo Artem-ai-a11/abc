@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Игра угадай слово</title>
+</head>
+<body>
+    <h1>Игра: Угадай слово</h1>
+    <div id="game">
+        <div id="word">_ _ _ _</div>
+        <input type="text" id="guess" maxlength="1" placeholder="Введите букву">
+        <button onclick="checkGuess()">Угадать</button>
+        <div id="message"></div>
+    </div>
+
+    <script>
+        // Массив слов для игры
+        const words = ["рак", "пёс", "рок", "рис", "помидор", "эщкереее"];
+        let word = words[Math.floor(Math.random() * words.length)];
+        let guessedWord = Array(word.length).fill("_");
+        let attempts = word.length + 1;
+
+
+        // Обновление отображения слова
+        function updateWordDisplay() {
+            document.getElementById("word").textContent = guessedWord.join(" ");
+        }
+
+        // Проверка статуса игры
+        function checkGameStatus() {
+            if (guessedWord.join("") === word) {
+                document.getElementById("message").textContent = "Поздравляем! Вы угадали слово!";
+                document.getElementById("guess").disabled = true;
+            } else if (attempts <= 0) {
+                document.getElementById("message").textContent = `Игра окончена! Слово было: ${word}`;
+                document.getElementById("guess").disabled = true;
+            } else {
+                document.getElementById("message").textContent = `Осталось попыток: ${attempts}`;
+            }
+        }
+
+        // Инициализация игры
+        updateWordDisplay();
+    </script>
+</body>
+</html>
